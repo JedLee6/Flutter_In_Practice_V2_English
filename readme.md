@@ -1,5 +1,7 @@
 ## Flutter in Practice 2nd Edition, English Version
 
+Du Wen works for the original Flutter in Practice 2nd Edition in Chinese Language. You can find [the original Github project](https://github.com/flutterchina/flutter_in_action_2nd) here. I find this book is really useful and try to translate the book to benefit more Flutter developers like me.
+
 ## Content introduction
 
 This book covers not only the basic usage of Flutter, but also the design ideas and underlying principles of Flutter. The main features are as follows:
