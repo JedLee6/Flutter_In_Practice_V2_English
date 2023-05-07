@@ -2,7 +2,7 @@
 
 ## 2.2.1 Concept of Widget
 
-In the previous introduction, we know that almost all objects in Flutter are widgets. Unlike Views or ViewControllers in native development, widgets in Flutter have a broader concept and can represent not only UI elements but also functional components such as: `GestureDetector ` for gesture detection, `Theme` for APP theme data passing, and so on, while Views or ViewControllers in native development usually just refer to UI elements. Later, we may use the terms "views" and "components" when describing UI elements, but the reader needs to know that they are widgets, just different expressions in different scenarios. Since Flutter is primarily about building a user interface, for the most part, the reader can think of a widget as a view component rather than making unnecessary distinctions in their concepts.
+In the previous introduction, we know that almost all objects in Flutter are widgets. Unlike Views or ViewControllers in native development, widgets in Flutter have a broader concept and can represent not only UI elements but also functional widgets such as: `GestureDetector ` for gesture detection, `Theme` for APP theme data passing, and so on, while Views or ViewControllers in native development usually just refer to UI elements. Later, we may use the terms "views" and "components" when describing UI elements, but the reader needs to know that they are widgets, just different expressions in different scenarios. Since Flutter is primarily about building a user interface, for the most part, the reader can think of a widget as a view component rather than making unnecessary distinctions in their concepts.
 
 The UI is built and practiced in the way widgets nested within widgets in Flutter, so remember that everything in Flutter is a Widget.
 
@@ -208,7 +208,7 @@ There are two common attributes in State:
 
 ### 2. State life cycle
 
-Understanding the life cycle of State is important to the development of flutter. In order to impress the reader, we demonstrate the life cycle of State through an example in this section. In the following example, again using the counter function as an example, we implement a CounterWidget component that we click to increment the counter by 1. Since we want to save the counter's numerical state, we should inherit the StatefulWidget as follows:
+Understanding the life cycle of State is important to the development of flutter. In order to impress the reader, we demonstrate the life cycle of State through an example in this section. In the following example, again using the counter function as an example, we create a CounterWidget that we click to increment the counter by 1. Since we want to save the counter's numerical state, we should inherit the StatefulWidget as follows:
 
 ```dart
 class CounterWidget extends StatefulWidget {
@@ -352,7 +352,7 @@ Figure 2-5 shows the life cycle of StatefulWidget.
 
 ## 2.2.7 Obtaining the State object from the widget tree
 
-Because the logic of the StatefulWidget is in its State, many times we need to get the State object of the StatefulWidget to call methods. For example, the ScaffoldState class corresponding to the Scaffold component defines a method for opening SnackBar (the hint bar at the bottom of the routing page). There are two ways to get the State object of the parent StatefulWidget in the tree of child widgets.
+Because the logic of the StatefulWidget is in its State, many times we need to get the State object of the StatefulWidget to call methods. For example, the ScaffoldState class corresponding to the Scaffold widget defines a method for opening SnackBar (the hint bar at the bottom of the routing page). There are two ways to get the State object of the parent StatefulWidget in the tree of child widgets.
 
 ### 1. Obtain the value from Context
 
@@ -382,7 +382,7 @@ class GetStateObjectRoute extends StatefulWidget {
                   _state.openDrawer(); }, child: Text('Open Drawer Menu 1'),); }), ], ), ), drawer: Drawer(),); }}
 ```
 
-In general, if the State of a StatefulWidget is private (and should not be exposed to the outside world), then our code should not get its state object directly. If the State of the StatefulWidget is what you want to expose (and usually some component action), you can get its state object directly. But by the context. FindAncestorStateOfType StatefulWidget state method is universal, we can't state whether private StatefulWidget specified in the grammatical level, Therefore, there is a default convention in the development of Flutter: if the State of the StatefulWidget is intended to be exposed, a static method of StatefulWidget should be provided to obtain its state object, which can be obtained directly by the developer. If the State does not want to be exposed, the of method is not provided. This convention is everywhere in the Flutter SDK. So, the Scaffold in the example above also provides an of method that we can actually call directly:
+In general, if the State of a StatefulWidget is private (and should not be exposed to the outside world), then our code should not get its state object directly. If the State of the StatefulWidget is what you want to expose (and usually some widget action), you can get its state object directly. But by the context. FindAncestorStateOfType StatefulWidget state method is universal, we can't state whether private StatefulWidget specified in the grammatical level, Therefore, there is a default convention in the development of Flutter: if the State of the StatefulWidget is intended to be exposed, a static method of StatefulWidget should be provided to obtain its state object, which can be obtained directly by the developer. If the State does not want to be exposed, the of method is not provided. This convention is everywhere in the Flutter SDK. So, the Scaffold in the example above also provides an of method that we can actually call directly:
 
 ```dart
 Builder(builder: (context) {
@@ -432,7 +432,7 @@ GlobalKey is a mechanism provided by Flutter to reference elements throughout th
 
 ## 2.2.8 Using the RenderObject to customize Widgets
 
-Both StatelessWidget and StatefulWidget are used to compose other components. They do not have a corresponding RenderObject. Many of the basic components in the Flutter library are not implemented through StatelessWidget and StatefulWidget, such as Text, Column, Align, etc., which are like building blocks, StatelessWidget and StatefulWidget can build blocks in different ways, but only if there are blocks, which are implemented using a custom RenderObject. In fact, the original way that Flutter defines components is by defining a RenderObject, with StatelessWidget and StatefulWidget as just two helper classes. Here's a quick demonstration of how to define a component using a RenderObject:
+Both StatelessWidget and StatefulWidget are used to compose other widgets. They do not have a corresponding RenderObject. Many of the basic widgets in the Flutter library are not implemented through StatelessWidget and StatefulWidget, such as Text, Column, Align, etc., which are like building blocks, StatelessWidget and StatefulWidget can build blocks in different ways, but only if there are blocks, which are implemented using a custom RenderObject. In fact, the original way that Flutter defines widgets is by defining a RenderObject, with StatelessWidget and StatefulWidget as just two helper classes. Here's a quick demonstration of how to define a widget using a RenderObject:
 
 ```dart
 class CustomWidget extends LeafRenderObjectWidget{
@@ -454,7 +454,7 @@ class CustomWidget extends LeafRenderObjectWidget{
     // Implement drawing}}
 ```
 
-If the component does not contain child components, then we can directly inherit from LeafRenderObjectWidget, which is a subclass of RenderObjectWidget, and RenderObjectWidget inherits from widgets. Let's look at its implementation:
+If the widget does not contain child widgets, then we can directly inherit from LeafRenderObjectWidget, which is a subclass of RenderObjectWidget, and RenderObjectWidget inherits from widgets. Let's look at its implementation:
 
 ```dart
 abstract class LeafRenderObjectWidget extends RenderObjectWidget {
@@ -465,40 +465,40 @@ abstract class LeafRenderObjectWidget extends RenderObjectWidget {
 }
 ```
 
-The widget implements the createElement method, which creates an Element object of type LeafRenderObjectElement for the component. If the custom widget can contain child components, you can choose according to the number of child components to inherit SingleChildRenderObjectWidget or MultiChildRenderObjectWidget, They also implement the createElement() method, which returns a different type of Element object.
+The widget implements the createElement method, which creates an Element object of type LeafRenderObjectElement for the widget. If the custom widget can contain child widgets, you can choose according to the number of child widgets to inherit SingleChildRenderObjectWidget or MultiChildRenderObjectWidget, They also implement the createElement() method, which returns a different type of Element object.
 
-We then override the createRenderObject method, which is defined in RenderObjectWidget and is called by the component's corresponding Element (when building the render tree) to generate the render object. Our main task is to implement the render object class returned by createRenderObject, in this case RenderCustomObject. The updateRenderObject method is a callback used to update the component render object if the component tree state changes but the RenderObject does not need to be recreated.
+We then override the createRenderObject method, which is defined in RenderObjectWidget and is called by the widget's corresponding Element (when building the render tree) to generate the render object. Our main task is to implement the render object class returned by createRenderObject, in this case RenderCustomObject. The updateRenderObject method is a callback used to update the widget render object if the widget tree state changes but the RenderObject does not need to be recreated.
 
 RenderCustomObject class inherits from RenderBox, and RenderBox inherits from RenderObject. We need to implement layout, rendering, event response and other logic in RenderCustomObject. The knowledge will be covered throughout the book, but don't worry, we will introduce it in later chapters.
 
-## 2.2.9 Introduction to the Flutter SDK built-in component library
+## 2.2.9 Introduction to the Flutter SDK built-in widget library
 
-Flutter provides a rich and powerful base component library on top of which Flutter provides a Material style (the default visual style for Android) and a Cupertino style (the visual style for iOS) component library. To use the base component library, you need to lead in:
+Flutter provides a rich and powerful base widget library on top of which Flutter provides a Material style (the default visual style for Android) and a Cupertino style (the visual style for iOS) widget library. To use the base widget library, you need to lead in:
 
 ```dart
 import 'package:flutter/widgets.dart';
 ```
 
-Let's take a look at the common components.
+Let's take a look at the common widgets.
 
-### 1. Basic components
+### 1. Basic widgets
 
-- Text: This component lets you create a formatted text.
+- Text: This widget lets you create a formatted text.
 - Row, Column: These layout class widgets with elastic Spaces allow you to create flexible layouts in both horizontal (Row) and vertical (Column) directions. The design is based on the Flexbox layout model for Web development.
 - `Stack`: Instead of linear layout (and Android)`FrameLayout`Similar), [`Stack`](https://docs.flutter.dev/flutter/widgets/stack-class.html) allows sub-widgets to Stack, which you can use `Positioned`To locate them relative to`Stack`The position of the top, bottom, left and right sides. Stacks is designed based on the absolute positioning layout model used in Web development.
 - Container: Container lets you create rectangular visual elements. A Container can decorate a BoxDecoration, such as a background, a border, ora shadow. A Container can also have margins, padding, and constraints that apply to its size. In addition, Container can transform it in three dimensions using a matrix.
 
-### 2. Material component
+### 2. Material widget
 
-Flutter offers a rich set of Material components that help us build applications that adhere to the Material Design design specifications. The Material application starts with the MaterialApp component, which creates the necessary components at the root of the application, such as the Theme component, which is used to configure the theme of the application. Whether or not to use the MaterialApp is entirely optional, but it is a good practice to use it. In the previous example, we have used several Material components such as: Scaffold, AppBar, TextButton, and so on. To use the Material component, you need to introduce it:
+Flutter offers a rich set of Material widgets that help us build applications that adhere to the Material Design design specifications. The Material application starts with the MaterialApp widget, which creates the necessary widgets at the root of the application, such as the Theme widget, which is used to configure the theme of the application. Whether or not to use the MaterialApp is entirely optional, but it is a good practice to use it. In the previous example, we have used several Material widgets such as: Scaffold, AppBar, TextButton, and so on. To use the Material widget, you need to introduce it:
 
 ```
 import 'package:flutter/material.dart';
 ```
 
-### 3. Cupertino components
+### 3. Cupertino widgets
 
-The Flutter also offers a rich set of Cupertino-style components, although not yet as rich as the Material component, but it is still being refined. It is worth noting that there are some Material components in the Material library that can switch presentation styles based on the actual running platform, such as MaterialPageRoute, which uses Android's default page switching animation (bottom up) when switching routes. On iOS, it uses iOS's default page-switching animation (from right to left). Since we didn't have an example of the Cupertino component in the previous example, let's implement a simple Cupertino component style page:
+The Flutter also offers a rich set of Cupertino-style widgets, although not yet as rich as the Material widget, but it is still being refined. It is worth noting that there are some Material widgets in the Material library that can switch presentation styles based on the actual running platform, such as MaterialPageRoute, which uses Android's default page switching animation (bottom up) when switching routes. On iOS, it uses iOS's default page-switching animation (from right to left). Since we didn't have an example of the Cupertino widget in the previous example, let's implement a simple Cupertino widget style page:
 
 ```dart
 Import the cupertino widget library
@@ -524,9 +524,9 @@ Below (Figure 2-7) is a screenshot of what the page looks like on iPhoneX:
 
 There are two types of widgets with Flutter: StatefulWidget and StatelessWidget. It is important to understand the difference between them. Widgets will be the cornerstone of building Flutter.
 
-Flutter provides a wealth of components that can be used as needed in actual development without worrying about making your application's installation package bigger by introducing too many component libraries. This is not web development. dart will only compile the code you use at compile time. Since both Material and Cupertino are on top of the base component library, if we introduce either of those in our application, we don't need to introduce flutter/ widgets.dart because they've already been introduced internally.
+Flutter provides a wealth of widgets that can be used as needed in actual development without worrying about making your application's installation package bigger by introducing too many widget libraries. This is not web development. dart will only compile the code you use at compile time. Since both Material and Cupertino are on top of the base widget library, if we introduce either of those in our application, we don't need to introduce flutter/ widgets.dart because they've already been introduced internally.
 
-As an aside, the examples later in this chapter will use some layout class components, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.
+As an aside, the examples later in this chapter will use some layout class widgets, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.
 
 
 
