@@ -161,7 +161,7 @@ class ContextRoute extends StatelessWidget  {
 
 Figure 2-4 shows the effect after operation:
 
-![图2-4](./assets/2-4.png)
+![image-20230507202433037](./assets/image-20230507202433037.png)
 
 > Note: We will use some of the Context methods as the book goes on, so that the reader can get a sense of it in a specific scenario. We'll cover more about BuildContext later in the advanced section as well.
 
@@ -308,7 +308,7 @@ You can see that neither `initState` nor `didChangeDependencies` is called, whil
 Next, we remove CounterWidget from the widget tree and change the StateLifecycleTest build method to:
 
 ```dart
-Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
   // Remove the counter
   //return CounterWidget ();
   // Return any Text()
@@ -349,11 +349,11 @@ Figure 2-5 shows the life cycle of StatefulWidget.
 
 ## 2.2.7 Obtaining the State object from the widget tree
 
-Because the logic of the StatefulWidget is in its `State`, many times we need to get the State object of the StatefulWidget to call methods. For example, the `ScaffoldState ` class corresponding to the Scaffold widget defines a method for opening SnackBar (the hint bar at the bottom of the routing page), which is `ScaffoldMessenger.of(Context).showSnackBar(SnackBar(content: Text(String)));`. There are two ways to get the State object of the parent StatefulWidget in the tree of child widgets.
+Because the logic of the StatefulWidget is in its State, many times we need to get the State object of the StatefulWidget to call methods. For example, the ScaffoldState class corresponding to the Scaffold component defines a method for opening SnackBar (the hint bar at the bottom of the routing page). There are two ways to get the State object of the parent StatefulWidget in the tree of child widgets.
 
 ### 1. Obtain the value from Context
 
-The context object has a `findAncestorStateOfType()` method, which can traverse upward from the current node along the widget tree to find the State object corresponding to the StatefulWidget of the specified type. Here is an example of how to open SnackBar:
+The context object with a findAncestorStateOfType () method, this method can upward from the current node along the widget tree search specified type StatefulWidget corresponding State object. Here is an example of how to open SnackBar:
 
 ```dart
 class GetStateObjectRoute extends StatefulWidget {
@@ -379,13 +379,13 @@ class GetStateObjectRoute extends StatefulWidget {
                   _state.openDrawer(a); }, child: Text('Open Drawer Menu 1'),); }), ], ), ), drawer: Drawer(),); }}
 ```
 
-In general, if the State of a StatefulWidget is private (and should not be exposed to the outside), then our code should not get its state object directly by `Context.findAncestorStateOfType()`. If the State of the StatefulWidget wants to expose itself (and usually some methods to operate widgets), you can get its state object directly. But using `Context.findAncestorStateOfType()` method to find  StatefulWidget state is universal, we cannot specify whether the state of StatefulWidget is private at the syntax level. Therefore, there is a default convention in the development of Flutter: if the State of the StatefulWidget is intended to be exposed, a static method of StatefulWidget, conventionally named `of()`, should be provided to obtain its state object. If the State does not want to be exposed, the `of()` method is not provided. This convention is everywhere in the Flutter SDK. So, the `Scaffold`in the example above also provides an `of()` method that we can actually call directly:
+In general, if the State of a StatefulWidget is private (and should not be exposed to the outside world), then our code should not get its state object directly. If the State of the StatefulWidget is what you want to expose (and usually some component action), you can get its state object directly. But by the context. FindAncestorStateOfType StatefulWidget state method is universal, we can't state whether private StatefulWidget specified in the grammatical level, Therefore, there is a default convention in the development of Flutter: if the State of the StatefulWidget is intended to be exposed, a static method of StatefulWidget should be provided to obtain its state object, which can be obtained directly by the developer. If the State does not want to be exposed, the of method is not provided. This convention is everywhere in the Flutter SDK. So, the Scaffold in the example above also provides an of method that we can actually call directly:
 
 ```dart
 Builder(builder: (context) {
   return ElevatedButton(
     onPressed: () {
-      // ScaffoldState is obtained directly through the static method `of`
+      // ScaffoldState is obtained directly through the of static method
       ScaffoldState _state=Scaffold.of(context);
       // Open the drawer menu
       _state.openDrawer(a); }, child: Text('Open Drawer Menu 2'),); }),
@@ -407,47 +407,40 @@ After running the above example, click "Show SnackBar", and the effect is as sho
 
 ### 2. Via GlobalKey
 
-There is also a universal method of obtaining State objects for Flutter — via GlobalKey! There are two steps:
+There is also a universal method of obtaining State objects for Flutter -- via GlobalKey! There are two steps:
 
 1. Add GlobalKey to the target StatefulWidget.
 
     ```dart
     // Define a GlobalKey. Since GlobalKeys are globally unique, we use static variable storage
-    static GlobalKey<ScaffoldState> _globalKey= GlobalKey(a);
-    //...
-    Scaffold(
-        key: _globalKey , // Set the key...
-    )
+    static GlobalKey<ScaffoldState> _globalKey= GlobalKey(a); ...Scaffold(
+        key: _globalKey , // Set the key...)
     ```
 
 2. Get the State object via GlobalKey
 
     ```dart
-    _globalKey.currentState.openDrawer()
+    _globalKey.currentState.openDrawer(a)
     ```
 
-GlobalKey is a mechanism provided by Flutter to reference elements throughout the App. If a widget is set to GlobalKey, we can get the widget object via `globalKey.currentWidget`, `globalkey. currentElement` to get the element object corresponding to the widget, If the current widget is a StatefulWidget, you can use `globalKey.currentState` to get the state object for the widget.
+GlobalKey is a mechanism provided by Flutter to reference elements throughout the App. If a widget is set to GlobalKey, we can get the widget object via globalKey.currentWidget, globalkey. currentElement to get the element object corresponding to the widget, If the current widget is a StatefulWidget, you can use globalKey.currentState to get the state object for the widget.
 
-> Note: Using `GlobalKey` is expensive and should be avoided if there are other alternatives. In addition, the same GlobalKey must be unique in the entire widget tree and cannot be repeated.
+> Note: Using GlobalKey is expensive and should be avoided if there are other alternatives. In addition, the same GlobalKey must be unique in the entire widget tree and cannot be repeated.
 
 ## 2.2.8 Using the RenderObject to customize Widgets
 
-Both StatelessWidget and StatefulWidget are used to compose other components. They do not have a corresponding `RenderObject`. Many of the basic components in the Flutter library are not implemented through StatelessWidget and StatefulWidget, such as Text, Column, Align, etc., which are like building blocks, StatelessWidget and StatefulWidget can build blocks in different ways, but only if there are blocks, which are implemented using a custom RenderObject. In fact, the original way that Flutter defines widgets is by defining a RenderObject, while StatelessWidget and StatefulWidget are just two helper classes. Here's a quick demonstration of how to define a widget using a RenderObject:
+Both StatelessWidget and StatefulWidget are used to compose other components. They do not have a corresponding RenderObject. Many of the basic components in the Flutter library are not implemented through StatelessWidget and StatefulWidget, such as Text, Column, Align, etc., which are like building blocks, StatelessWidget and StatefulWidget can build blocks in different ways, but only if there are blocks, which are implemented using a custom RenderObject. In fact, the original way that Flutter defines components is by defining a RenderObject, with StatelessWidget and StatefulWidget as just two helper classes. Here's a quick demonstration of how to define a component using a RenderObject:
 
 ```dart
 class CustomWidget extends LeafRenderObjectWidget{
   @override
   RenderObject createRenderObject(BuildContext context) {
     // Create a RenderObject
-    return RenderCustomObject(a); }
-    
-  @override
+    return RenderCustomObject(a); }@override
   void updateRenderObject(BuildContext context, RenderCustomObject  renderObject) {
     // Update the RenderObject
-    super.updateRenderObject(context, renderObject); }
-}
+    super.updateRenderObject(context, renderObject); }}class RenderCustomObject extends RenderBox{
 
-class RenderCustomObject extends RenderBox{
   @override
   void performLayout() {
     // Implement the layout logic
@@ -455,25 +448,23 @@ class RenderCustomObject extends RenderBox{
 
   @override
   void paint(PaintingContext context, Offset offset) {
-    // Implement drawing
-  }
-}
+    // Implement drawing}}
 ```
 
-If the component does not contain child components, then we can directly inherit from `LeafRenderObjectWidget`, which is a subclass of `RenderObjectWidget`, and `RenderObjectWidget ` inherits from `Widget`. Let's look at its implementation:
+If the component does not contain child components, then we can directly inherit from LeafRenderObjectWidget, which is a subclass of RenderObjectWidget, and RenderObjectWidget inherits from widgets. Let's look at its implementation:
 
 ```dart
 abstract class LeafRenderObjectWidget extends RenderObjectWidget {
   const LeafRenderObjectWidget({ Key? key }) : super(key: key);
 
   @override
-  LeafRenderObjectElement createElement() => LeafRenderObjectElement(this);
+  LeafRenderObjectElement createElement(a)= > LeafRenderObjectElement(this);
 }
 ```
 
-The widget implements the createElement method, which creates an Element object of `LeafRenderObjectElement ` type. If the custom widget can contain child components, according to the number of child components to inherit `SingleChildRenderObjectWidget` or `MultiChildRenderObjectWidget`. They also both implement the createElement() method, which returns a different type of Element object.
+The widget implements the createElement method, which creates an Element object of type LeafRenderObjectElement for the component. If the custom widget can contain child components, you can choose according to the number of child components to inherit SingleChildRenderObjectWidget or MultiChildRenderObjectWidget, They also implement the createElement() method, which returns a different type of Element object.
 
-We then override the createRenderObject method, which is defined in RenderObjectWidget and is called by the component's corresponding Element (when building the render tree) to generate the render object. Our main task is to implement the render object class returned by createRenderObject, which is RenderCustomObject in this case. The updateRenderObject method is a callback used to update the widget render object if the widget tree state changes but the RenderObject does not need to be recreated.
+We then override the createRenderObject method, which is defined in RenderObjectWidget and is called by the component's corresponding Element (when building the render tree) to generate the render object. Our main task is to implement the render object class returned by createRenderObject, in this case RenderCustomObject. The updateRenderObject method is a callback used to update the component render object if the component tree state changes but the RenderObject does not need to be recreated.
 
 RenderCustomObject class inherits from RenderBox, and RenderBox inherits from RenderObject. We need to implement layout, rendering, event response and other logic in RenderCustomObject. The knowledge will be covered throughout the book, but don't worry, we will introduce it in later chapters.
 
@@ -526,12 +517,10 @@ class CupertinoTestRoute extends StatelessWidget  {
 
 Below (Figure 2-7) is a screenshot of what the page looks like on iPhoneX:
 
-![图2-7](./assets/2-7.png)
-
-## 2.2.10 Summary
+[![图2-7](./assets/2-7.png)
 
 There are two types of widgets with Flutter: StatefulWidget and StatelessWidget. It is important to understand the difference between them. Widgets will be the cornerstone of building Flutter.
 
 Flutter provides a wealth of components that can be used as needed in actual development without worrying about making your application's installation package bigger by introducing too many component libraries. This is not web development. dart will only compile the code you use at compile time. Since both Material and Cupertino are on top of the base component library, if we introduce either of those in our application, we don't need to introduce flutter/ widgets.dart because they've already been introduced internally.
 
-As an aside, the examples later in this chapter will use some layout class components, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.
+As an aside, the examples later in this chapter will use some layout class components, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.Z
