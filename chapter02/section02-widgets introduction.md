@@ -41,7 +41,10 @@ abstract class Widget extends DiagnosticableTree {
 
   static bool canUpdate(Widget oldWidget, Widget newWidget) {
     return oldWidget.runtimeType = = newWidget.runtimeType
-        && oldWidget.key = =newWidget.key; }... }
+        && oldWidget.key = =newWidget.key; 
+  }
+  //... 
+}
 ```
 
 - `@immutable` means that the Widget is immutable, which limits the properties defined in the Widget (i.e. configuration information) to be final. Why not allow the properties defined in the Widget to change? This is because the Widget tree is rebuilt in Flutter if the properties change, that is, a new Widget instance is created to replace the old Widget instance, so allowing Widget properties to change is meaningless because the Widget itself will be replaced once its properties change. This is why the properties defined in the Widget must be final.
@@ -523,4 +526,10 @@ There are two types of widgets with Flutter: StatefulWidget and StatelessWidget.
 
 Flutter provides a wealth of components that can be used as needed in actual development without worrying about making your application's installation package bigger by introducing too many component libraries. This is not web development. dart will only compile the code you use at compile time. Since both Material and Cupertino are on top of the base component library, if we introduce either of those in our application, we don't need to introduce flutter/ widgets.dart because they've already been introduced internally.
 
-As an aside, the examples later in this chapter will use some layout class components, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.Z
+As an aside, the examples later in this chapter will use some layout class components, such as Scaffold, Row, Column, and so on, which will be covered in detail in the Layout Class Components chapter.
+
+
+
+____
+
+Du Wen works for the original Flutter in Practice 2nd Edition in Chinese Language. You can find the original Github project [flutter_in_action_2nd](https://github.com/flutterchina/flutter_in_action_2nd) there, and the translated English version in my Github project [Flutter_In_Practice_V2_English](https://github.com/happylee1/Flutter_In_Practice_V2_English) here. I find this book is really useful and try to translate and tweak the book content to benefit more Flutter developers like me.
