@@ -520,7 +520,7 @@ class CupertinoTestRoute extends StatelessWidget  {
 
 Below (Figure 2-7) is a screenshot of what the page looks like on iPhoneX:
 
-[![图2-7](./assets/2-7.png)
+![图2-7](./assets/2-7.png)
 
 There are two types of widgets with Flutter: StatefulWidget and StatelessWidget. It is important to understand the difference between them. Widgets will be the cornerstone of building Flutter.
 
