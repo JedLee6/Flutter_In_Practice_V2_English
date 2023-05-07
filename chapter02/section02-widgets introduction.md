@@ -379,7 +379,7 @@ class GetStateObjectRoute extends StatefulWidget {
                   // Finds the ScaffoldState object corresponding to the most recent Scaffold of the parent
                   ScaffoldState _state = context.findAncestorStateOfType<ScaffoldState> ()!;
                   // Open the drawer menu
-                  _state.openDrawer(a); }, child: Text('Open Drawer Menu 1'),); }), ], ), ), drawer: Drawer(),); }}
+                  _state.openDrawer(); }, child: Text('Open Drawer Menu 1'),); }), ], ), ), drawer: Drawer(),); }}
 ```
 
 In general, if the State of a StatefulWidget is private (and should not be exposed to the outside world), then our code should not get its state object directly. If the State of the StatefulWidget is what you want to expose (and usually some component action), you can get its state object directly. But by the context. FindAncestorStateOfType StatefulWidget state method is universal, we can't state whether private StatefulWidget specified in the grammatical level, Therefore, there is a default convention in the development of Flutter: if the State of the StatefulWidget is intended to be exposed, a static method of StatefulWidget should be provided to obtain its state object, which can be obtained directly by the developer. If the State does not want to be exposed, the of method is not provided. This convention is everywhere in the Flutter SDK. So, the Scaffold in the example above also provides an of method that we can actually call directly:
@@ -391,7 +391,7 @@ Builder(builder: (context) {
       // ScaffoldState is obtained directly through the of static method
       ScaffoldState _state=Scaffold.of(context);
       // Open the drawer menu
-      _state.openDrawer(a); }, child: Text('Open Drawer Menu 2'),); }),
+      _state.openDrawer(); }, child: Text('Open Drawer Menu 2'),); }),
 ```
 
 For example, if we want to display the snack bar, we can do the following:
@@ -423,7 +423,7 @@ There is also a universal method of obtaining State objects for Flutter -- via G
 2. Get the State object via GlobalKey
 
     ```dart
-    _globalKey.currentState.openDrawer(a)
+    _globalKey.currentState.openDrawer()
     ```
 
 GlobalKey is a mechanism provided by Flutter to reference elements throughout the App. If a widget is set to GlobalKey, we can get the widget object via globalKey.currentWidget, globalkey. currentElement to get the element object corresponding to the widget, If the current widget is a StatefulWidget, you can use globalKey.currentState to get the state object for the widget.
