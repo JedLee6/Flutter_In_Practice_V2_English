@@ -22,13 +22,13 @@ Next, we'll illustrate the different ways to manage state by creating three simp
 
 The following example uses a `GestureDetector` to identify click events. We'll cover the details of this `GestureDetector` later in the "Event Handling" chapter.
 
-## 2.3.2 Widget manages its own state
+## 2.3.2 The Widget manages its own state
 
 We implement a TapboxA in its corresponding `_TapboxAState` class:
 
-- Manage the state of TapboxA.
-- Definition of `_active`: Determines the Boolean value of the current color of the box.
-- Definition of `_handleTap()` Function, which updates when the box is clicked`_active`And call`setState()`Update the UI.
+- Manages the state of TapboxA.
+- Definition of `_active`: A Boolean value Determining the current color of the box.
+- Definition of `_handleTap()` Function, which updates `_active` when the box is clicked, and call `setState()` to update the UI.
 - Implements all the interactive behavior of a widget.
 
 ```dart
@@ -65,21 +65,21 @@ class TapboxA extends StatefulWidget {
           color: _active ? Colors.lightGreen[seven hundred] : Colors.grey[600],),),); }}
 ```
 
-## 2.3.3 Parent Widget manages the status of child Widgets
+## 2.3.3 Parent Widget manages states of child Widgets
 
-It is often a good way for the parent Widget to manage state and tell its children when to update. For example, an IconButton is an icon button, but it is a stateless Widget because we assume that the parent Widget needs to know if the button has been clicked in order to act accordingly.
+It is often a good way for the parent Widget to manage states and tell its children when to update. For example, an `IconButton` is an icon button, but it is a stateless `Widget` because we assume that the parent Widget needs to know if the button has been clicked in order to act accordingly.
 
-In the following example, TapboxB exports its state to its parent widget via a callback, which is managed by the parent widget, so its parent widget is the StatefulWidget. But because TapboxB does not manage any state, TapboxB is a StatelessWidget.
+In the following example, TapboxB exports its state to its parent widget via a callback, which is managed by the parent widget, so its parent widget is the `StatefulWidget`. But TapboxB does not manage any state, so TapboxB is a `StatelessWidget`.
 
-The ParentWidgetState class:
+The `ParentWidgetState` class:
 
-- Managed for TapboxB`_active`State.
-- realization`_handleTapboxChanged()`, which is called when the box is clicked.
-- Called when the state changes`setState()`Update the UI.
+- Manages the `_active` State for TapboxB.
+- Implements `_handleTapboxChanged()`, which is called when the box is clicked.
+- Calls `setState()` to update the UI when the state changes.
 
-TapboxB class:
+`TapboxB` class:
 
-- inherit`StatelessWidget`Class, because all state is handled by its parent widget.
+- Subclasses `StatelessWidget` Class, because all state is handled by its parent widget.
 - It notifies the parent widget when a click is detected.
 
 ```dart
