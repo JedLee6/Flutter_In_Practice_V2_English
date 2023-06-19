@@ -40,13 +40,13 @@ Based on the "counter" example in Section 2.1, we make the following modificatio
 
     We added a button to open a new route. Clicking this button will open a new route page, as shown in Figure 2-9 and 2-10.
 
-    ![图2-9](./assets/2-9.png)
+    ![图2-9](https://raw.githubusercontent.com/happylee1/PublicPicBed/main/img/2-9.png)
 
-    ![图2-10](./assets/2-10.png)
+    ![图2-10](https://raw.githubusercontent.com/happylee1/PublicPicBed/main/img/2-10.png)
 
 ## 2.4.2 MaterialPageRoute
 
-MaterialPageRoute inherits from the PageRoute class, which is an abstract class representing a modal routing page that occupies an entire screen space. The MaterialPageroute class also defines interfaces and attributes associated with transition animations during route building and switching. MaterialPageRoute is a component provided by the Material component library that enables routing switching animations consistent with the platform page switching animation style for different platforms:
+MaterialPageRoute inherits from the PageRoute class, which is an abstract class representing a modal routing page that occupies an entire screen space. The MaterialPageroute class also defines interfaces and attributes associated with transition animations during route building and switching. MaterialPageRoute is a widget provided by the Material widget library that enables routing switching animations consistent with the platform page switching animation style for different platforms:
 
 - For Android, when a new page is opened, the new page slides from the bottom of the screen to the top of the screen; When you close the page, the current page slides from the top of the screen to the bottom of the screen and disappears, while the previous page appears on the screen.
 - For iOS, when a page is opened, the new page will slide from the right edge of the screen to the left of the screen until the new page is fully displayed on the screen, while the previous page will slide from the current screen to the left of the screen and disappear; When you close a page, the reverse is true: the current page slides out from the right side of the screen, while the previous page slides in from the left.
@@ -66,11 +66,11 @@ Here is what the MaterialPageRoute constructor means:
 - `maintainState`By default, when a new route is added to the stack, the original route is still stored in memory. If you want to release all resources occupied by the route when it is useless, you can set this parameter`maintainState`for`false`.
 - `fullscreenDialog`Indicates whether the new routing page is a full screen modal dialog box, in iOS if`fullscreenDialog`for`true`The new page will slide in from the bottom of the screen (instead of horizontally).
 
-> If you want to customize the route switching animation, you can do it yourself by inheriting PageRoute. We will implement a custom routing component later when we introduce the animation.
+> If you want to customize the route switching animation, you can do it yourself by inheriting PageRoute. We will implement a custom routing widget later when we introduce the animation.
 
 ## 2.4.3 Navigator
 
-Navigator is a routing management component that provides ways to open and exit routing pages. The Navigator manages the collection of active routes through a stack. Usually, the page displayed on the current screen is the route at the top of the stack. Navigator provides a number of ways to manage the routing stack, and we'll just cover two of its most common methods:
+Navigator is a routing management widget that provides ways to open and exit routing pages. The Navigator manages the collection of active routes through a stack. Usually, the page displayed on the current screen is the route at the top of the stack. Navigator provides a number of ways to manage the routing stack, and we'll just cover two of its most common methods:
 
 ### 1. `Future push(BuildContext context, Route route)`
 
@@ -143,7 +143,7 @@ class RouterTestRoute extends StatelessWidget {
 
 Run the above code and click "Open Tip" on the RouterTestRoute page to bring up TipRoute, as shown in Figure 2-11:
 
-![图2-11](./assets/2-11.png)
+![图2-11](https://raw.githubusercontent.com/happylee1/PublicPicBed/main/img/2-11.png)
 
 Need to note:
 
@@ -163,7 +163,7 @@ The so-called "Named Route" is a route with a name. We can give a name to the ro
 
 ### 1. Routing table
 
-To use named routes, we must first provide and register a routing table so that the application knows which name corresponds to which routing component. In fact, registering a routing table is to name a route. The routing table is defined as follows:
+To use named routes, we must first provide and register a routing table so that the application knows which name corresponds to which routing widget. In fact, registering a routing table is to name a route. The routing table is defined as follows:
 
 ```dart
 Map<String, WidgetBuilder> routes;
@@ -271,7 +271,7 @@ MaterialApp(...)// Omit irrelevant code
 
 Suppose we want to develop an e-commerce App. When the user is not logged in, he can see the store and commodity information, but the transaction record, shopping cart, user's personal information and other pages can only be seen after login. To do this, we need to determine the user login status before opening each routing page! If it's going to be a hassle to have to judge a route every time we open it, what better way? The answer is yes!
 
-MaterialApp has an onGenerateRoute property which may be called when opening the named route, possibly because when calling Navigator.pushNamed(...) When opening the named route, if the specified route name has been registered in the routing table, the builder function in the routing table is called to generate the routing component. onGenerateRoute is called to generate a route only if it is not registered in the routing table. The onGenerateRoute callback signature is as follows:
+MaterialApp has an onGenerateRoute property which may be called when opening the named route, possibly because when calling Navigator.pushNamed(...) When opening the named route, if the specified route name has been registered in the routing table, the builder function in the routing table is called to generate the routing widget. onGenerateRoute is called to generate a route only if it is not registered in the routing table. The onGenerateRoute callback signature is as follows:
 
 ```dart
 Route<dynamic> Function(RouteSettings settings)

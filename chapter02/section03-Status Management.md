@@ -241,4 +241,4 @@ When the application requires some state synchronization across widgets (includi
 1. Implement a global event bus, corresponding language state changes to an event, and then rely on the application language widgets in the APP`initState`Method to subscribe to language change events. When the user switches languages in the Settings page, we publish the language change event, and the widget that subscribed to the event is notified and called upon receiving the notification`setState(...)`Method reversion`build`Just by itself.
 2. Use some of the packages dedicated to state management, such as Provider and Redux, which you can view in detail at pub.
 
-Provider packages are implemented and used in the "Functional Components" chapter, and a global event bus is implemented in the "Event Handling and Notification" chapter, which readers can flip through as needed.
+Provider packages are implemented and used in the "Functional Widgets" chapter, and a global event bus is implemented in the "Event Handling and Notification" chapter, which readers can flip through as needed.
