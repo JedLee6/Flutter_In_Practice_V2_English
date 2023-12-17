@@ -1,28 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <meta name="description" content="Description">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-</head>
-<body>
-  <div id="app"></div>
-  <style type="text/css">
-    .content {
-      overflow: auto !important;
-    }
-</style>
-  <script>
-    window.$docsify = {
-      loadSidebar: true,
-      subMaxLevel: 2
-    }
-</script>
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
-  <!-- Docsify v4 -->
-  <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
-</body>
+  <head>
+    <title>Flutter In Practice V2 English</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="//unpkg.com/docsify/themes/vue.css" />
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      window.$docsify = {
+        <!-- Configure the repository url, or a string of username\/repo, to add the GitHub Corner widget in the top right corner of the site. -->
+        repo: 'https://github.com/JedLee6/Flutter_In_Practice_V2_English',
+        <!-- Scrolls to the top of the screen when the route is changed. -->
+        auto2top: true,
+        loadSidebar: true,
+        subMaxLevel: 2,
+        search: "auto",
+      };
+    </script>
+    <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+    <!-- plugins -->
+    <script src="//unpkg.com/docsify-sidebar-collapse/dist/docsify-sidebar-collapse.min.js"></script>
+    <script src="//unpkg.com/docsify-scroll-to-top/dist/docsify-scroll-to-top.min.js"></script>
+
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async="" defer=""></script>
+    <!-- Docsify uses Prism to highlight code blocks in your pages. -->
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-dart.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-dart.js"></script>
+    <!-- Docsify v4 -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/docsify@4"></script> -->
+  </body>
 </html>
