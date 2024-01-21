@@ -1,9 +1,8 @@
 - [README](README.md)
-- [ sidebar1](_sidebar1.md)
 
 - Chapter01
-  - [01.01 Introduction To Mobile Development Technologies](chapter01/01.01_Introduction to Mobile Development Technologies.md)
-  - [01.02 Getting To Know Flutter](chapter01/01.02_Getting to Know Flutter.md)
+  - [01.01 Introduction to Mobile Development Technologies](chapter01/01.01_Introduction_to_Mobile_Development_Technologies.md)
+  - [01.02 Getting to Know Flutter](chapter01/01.02_Getting_to_Know_Flutter.md)
 
 - Chapter02
   - [Section02 Widgets introduction](chapter02/section02-widgets_introduction.md)
